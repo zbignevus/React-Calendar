@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     const { rangeBegin, rangeEnd } = this.state;
     return (
-          <Calendar rangeReturn={this.rangeReturn} />
+          Calendar rangeReturn={this.rangeReturn}
     )
 }
 </pre>
