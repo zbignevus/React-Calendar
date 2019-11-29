@@ -11,5 +11,29 @@ returns it as two values - the earlier and the latter date ranges, both as the J
 
 To begin a range selection, double click on a date and select the next day on which you'd like the range to end.
 
+Code Example:
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rangeBegin: null,
+      rangeEnd: null
+    };
+  }
+
+  rangeReturn = (rangeBegin, rangeEnd) => {
+    this.setState({
+      rangeBegin,
+      rangeEnd
+    });
+  };
+
+  render() {
+    const { rangeBegin, rangeEnd } = this.state;
+    return (
+          <Calendar rangeReturn={this.rangeReturn} />
+    )
+}
 
 CodeSandbox demonstration here https://codesandbox.io/s/holy-smoke-ijf0r?fontsize=14&hidenavigation=1&theme=dark
