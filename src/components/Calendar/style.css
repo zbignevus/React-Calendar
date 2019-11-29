@@ -1,4 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+* {
+  overflow-x: hidden;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: arrow;
+}
+
 .Calendar {
+  overflow-x: hidden;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: arrow;
   text-align: center;
   color: #eef3f8;
   font-family: "Roboto";
@@ -103,10 +118,4 @@ button.ArrowSelect {
   cursor: pointer;
   color: inherit;
   font-size: 1.3em;
-}
-
-.selectionMode {
-}
-
-.selected {
 }
