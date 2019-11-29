@@ -6,8 +6,7 @@ returns it as two values - the earlier and the latter date ranges, both as the J
 #Usage Instructions:
 
 1. Download the Calendar folder to your project's src directory.
-2. The Calendar component needs to have a single attribute- rangeReturn. The handler function has to be in the parent component, and
-has to accept two parameters - first as the beginning range, and the second as the end range.
+2. The Calendar component needs to have a single attribute- rangeReturn with a function pointing to a handler function in the parent component, and has to accept two parameters - first as the beginning range, and the second as the end range.
 3. Once you select the range on the calendar, the two range dates are passed through that handler function.
 
 To begin a range selection, double click on a date and select the next day on which you'd like the range to end.
