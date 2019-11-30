@@ -49,4 +49,4 @@ class App extends Component {
 }
 </pre>
 
-CodeSandbox demo <a href="https://codesandbox.io/s/holy-smoke-ijf0r?fontsize=14&hidenavigation=1&theme=dark">here</a>.
+[![Edit holy-smoke-ijf0r](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/holy-smoke-ijf0r?fontsize=14&hidenavigation=1&theme=dark&view=preview)
