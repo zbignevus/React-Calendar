@@ -1,4 +1,4 @@
-<h1>React Calendar</h1>
+<h1>React-Calendar</h1>
 
 ![alt text](https://raw.githubusercontent.com/zbignevus/React-Calendar/master/calendar.png)
 
