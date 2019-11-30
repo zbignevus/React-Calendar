@@ -5,6 +5,8 @@
 This is a fully reusable calendar component that I have created using React, which allows you to select a calendar date range and 
 returns it as two values - the earlier and the latter date ranges, both as the JavaScript Date object.
 
+CodeSandbox demo here <a href="https://codesandbox.io/s/holy-smoke-ijf0r?fontsize=14&hidenavigation=1&theme=dark">here</a>.
+
 <h2>Installation</h2>
 
 Download Calendar folder from "src/components/" and place it in your React project's component directory.
@@ -46,4 +48,4 @@ class App extends Component {
 }
 </pre>
 
-CodeSandbox demonstration <a href="https://codesandbox.io/s/holy-smoke-ijf0r?fontsize=14&hidenavigation=1&theme=dark">here</a>.
+
