@@ -13,7 +13,7 @@ Preview <a href='https://ijf0r.csb.app/'>here</a>
 Download Calendar folder from "src/components/" and place it in your React project's component directory.
 Import into the file where you are planning to use it as
 
-<code>import Calendar from '<component directory>/Calendar';</code>
+<code>import Calendar from './path-to-component-folder/Calendar';</code>
 
 <h2>Usage Instructions</h2>
 
