@@ -20,14 +20,12 @@ import "./style.css";
     3. CalendarHeader component passes the year/month and action from CalendarHeader child component through handleChangeViewedDate function.
  */
 
-const initialDate = new Date();
-
 class Calendar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      viewedDate: initialDate,
+      viewedDate: this.props.date || new Date(),
       rangeBeginning: null,
       rangeEnding: null,
     };

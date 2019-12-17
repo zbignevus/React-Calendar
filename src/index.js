@@ -20,8 +20,8 @@ class App extends Component {
     return (
       <Fragment>
         <div className="CalendarContainer">
-          
-          <Calendar dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}/>
+
+          <Calendar date={new Date(2019,12,11)} dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}/>
 
         </div>
 
@@ -30,8 +30,8 @@ class App extends Component {
         <br />
         <div>
           Selected range is from:
-            {`${earlierDate && earlierDate.getFullYear() + "-" + (earlierDate.getMonth() + 1) + "-" + earlierDate.getDate()} 
-          to 
+            {`${earlierDate && earlierDate.getFullYear() + "-" + (earlierDate.getMonth() + 1) + "-" + earlierDate.getDate()}
+          to
             ${laterDate && laterDate.getFullYear() + "-" + (laterDate.getMonth() + 1) + "-" + laterDate.getDate()}
           `}
         </div>
