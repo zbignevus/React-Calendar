@@ -9,7 +9,7 @@ import CalendarWeekNames from './CalendarWeekNames';
   2. Changes the currently viewed calendar month and/or year based on value it passes to changing date handler function to the parent (Calendar) component).
 
   *notes
-    the visual component "CalendarMonthNames" allows to add an array of months(needs to be in actual order). 
+    the visual component "CalendarMonthNames" allows to add an array of months(needs to be in actual order).
     This is needed should the user want to have months displayed in a different language.
 */
 

@@ -15,58 +15,47 @@ import { getMonthLength, getEarlierDate, getLaterDate } from "../helpers.js";
 
 const Days = props => {
   const {
-    viewedYear,
-    viewedMonth,
-    rangeBeginningYear,
-    rangeBeginningMonth,
-    rangeBeginningDay,
-    rangeEndingYear,
-    rangeEndingMonth,
-    rangeEndingDay,
+    viewedDate,
+    rangeBeginning,
+    rangeEnding,
     onClick
   } = props;
+  const viewedYear = viewedDate.getFullYear();
+  const viewedMonth = viewedDate.getMonth();
 
-  
+
   const days = [];
 
-  const daysLength = getMonthLength(viewedYear, viewedMonth);
+  const monthLength = getMonthLength(viewedDate);
 
-  const earlierDate = getEarlierDate(
-    new Date(rangeBeginningYear, rangeBeginningMonth, rangeBeginningDay),
-    new Date(rangeEndingYear, rangeEndingMonth, rangeEndingDay)
-  );
+  const earlierDate = rangeBeginning && rangeEnding ? getEarlierDate(
+    rangeBeginning,
+    rangeEnding,
+  ).getTime() : null;
 
-  const laterDate = getLaterDate(
-    new Date(rangeBeginningYear, rangeBeginningMonth, rangeBeginningDay),
-    new Date(rangeEndingYear, rangeEndingMonth, rangeEndingDay)
-  );
+  const laterDate = rangeBeginning & rangeEnding ? getLaterDate(
+    rangeBeginning,
+    rangeEnding,
+  ).getTime() : null;
 
-  for (let i = 1; i <= daysLength; i++) {
-    let currentDate = new Date(viewedYear, viewedMonth, i).getTime();
-    
+
+
+  for (let i = 1; i <= monthLength; i++) {
     //FOR CONDITIONAL STYLING
 
+    const currentDate = new Date(viewedYear, viewedMonth, i).getTime();
+
     //DAY WILL BE MARKED IF WITHIN SELECTED RANGE
-    let isInRange =
-     (rangeBeginningYear || rangeBeginningYear === 0) &&
-      (rangeBeginningMonth || rangeBeginningMonth === 0) &&
-      rangeBeginningDay &&
-      (rangeEndingYear || rangeEndingYear === 0) &&
-      (rangeEndingMonth || rangeEndingMonth === 0) &&
-      rangeEndingDay &&
-      earlierDate.getTime() <= currentDate &&
-      currentDate <= laterDate.getTime();
-      
+    const isInRange =
+      rangeBeginning && rangeEnding && earlierDate <= currentDate && currentDate <= laterDate;
+
 
     //DAY WILL BE MARKED DIFFERENTLY IF FIRST OR LAST WITHIN RANGE
-    let isTheRangeLimit =
-      earlierDate &&
-      laterDate &&
-      (earlierDate.getTime() === currentDate ||
-        laterDate.getTime() === currentDate);
+    const isTheRangeLimit =
+      earlierDate && laterDate && (earlierDate === currentDate || laterDate === currentDate);
 
     //DAY WILL BE MARKED DIFFERENTLY IF CLICKED ON
-    let isActive = new Date(rangeBeginningYear, rangeBeginningMonth, rangeBeginningDay).getTime() === new Date(viewedYear, viewedMonth, i).getTime();
+    const isActive = (rangeBeginning && rangeBeginning.getTime()) === currentDate;
 
     days.push(
       <button
