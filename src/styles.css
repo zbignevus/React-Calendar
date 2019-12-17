@@ -8,12 +8,14 @@ body,
   border: none;
   background: none;
   cursor: arrow;
+  outline: none;  
 }
 
-.Calendar {
+.CalendarContainer {
   text-align: center;
   color: #eef3f8;
   font-family: "Roboto";
+  width: 350px;
 }
 
 .CalendarMonthName {

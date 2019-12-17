@@ -10,39 +10,30 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rangeBegin: null,
-      rangeEnd: null
+      earlierDate: null,
+      laterDate: null
     };
   }
 
-  rangeReturn = (rangeBegin, rangeEnd) => {
-    this.setState({
-      rangeBegin,
-      rangeEnd
-    });
-  };
-
   render() {
-    const { rangeBegin, rangeEnd } = this.state;
+    const { earlierDate, laterDate } = this.state;
     return (
       <Fragment>
-        <div className="Calendar" style={{ width: "350px" }}>
-          <Calendar rangeReturn={this.rangeReturn} />
+        <div className="CalendarContainer">
+          
+          <Calendar dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}/>
+
         </div>
+
+
+      {/*For demo purposes only*/}
         <br />
         <div>
-          The selected range is from:{" "}
-          {`${rangeBegin &&
-            rangeBegin.getFullYear() +
-              "-" +
-              (rangeBegin.getMonth() + 1) +
-              "-" +
-              rangeBegin.getDate()} to ${rangeEnd &&
-            rangeEnd.getFullYear() +
-              "-" +
-              (rangeEnd.getMonth() + 1) +
-              "-" +
-              rangeEnd.getDate()}`}
+          Selected range is from:
+            {`${earlierDate && earlierDate.getFullYear() + "-" + (earlierDate.getMonth() + 1) + "-" + earlierDate.getDate()} 
+          to 
+            ${laterDate && laterDate.getFullYear() + "-" + (laterDate.getMonth() + 1) + "-" + laterDate.getDate()}
+          `}
         </div>
       </Fragment>
     );
