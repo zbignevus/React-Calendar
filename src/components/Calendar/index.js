@@ -38,35 +38,35 @@ class Calendar extends Component {
       3. SETS EARLIER(earlierDate) AND LATER(laterDate) DATE BY COMPARING LAST CLICKED AND CURRENTLY CLICKED DATE'S VALUE.
 
    */
-  handleClick = currentlyClickedDate => {
+  handleClick = clickedDate => {
     const {rangeBeginning, rangeEnding} = this.state;
 
     const earlierDate = getEarlierDate(
       rangeBeginning,
-      currentlyClickedDate
+      clickedDate
     );
     const laterDate = getLaterDate(
       rangeBeginning,
-      currentlyClickedDate
+      clickedDate
     );
 
     //IF USER CLICKS ON A DATE WHILE ALREADY HAVING CLICKED ON ANY OTHER DATE PRIOR
     if (rangeBeginning) {
       this.props.dateRange(earlierDate, laterDate);
       this.setState({
-        rangeEnding: currentlyClickedDate
+        rangeEnding: clickedDate
       });
     } else {
       this.props.dateRange(null, null);
       this.setState({
-        rangeBeginning: currentlyClickedDate,
+        rangeBeginning: clickedDate,
       });
     }
     //IF USER CLICKS ON ANY DATE WHILE HAVING HAD SELECTED A RANGE
     if (rangeBeginning && rangeEnding) {
       this.props.dateRange(null, null);
       this.setState({
-        rangeBeginning: currentlyClickedDate,
+        rangeBeginning: clickedDate,
         rangeEnding: null,
       });
     }
@@ -80,43 +80,31 @@ class Calendar extends Component {
 
   */
 
-  handleChangeViewedDate = (action, prop) => {
+  handleChangeViewedDate = action => {
     let year = this.state.viewedDate.getFullYear();
     let month = this.state.viewedDate.getMonth();
 
     //Increase action behavior and it's prop conditions
-    if (action === "increase") {
-      if (prop === "viewedYear") {
-        year = year + 1;
-      }
-      if (prop === "viewedMonth") {
-        if (month + 1 > 11) {
-          month = 0;
-          year = year + 1;
-        } else {
-          month = month + 1;
-        }
-      }
-    }
-    //Decrease action behavior and it's prop conditions
-    if (action === "decrease") {
-      if (prop === "viewedYear") {
-        year = year - 1;
-      }
-      if (prop === "viewedMonth") {
-        if (month - 1 < 0) {
-          month = 11;
-          year = year - 1;
-        } else {
-          month = month - 1;
-        }
-      }
-    }
+    switch(action){
+      case "PREVIOUS_YEAR":
+        year = --year;
+        break;
+      case "NEXT_YEAR":
+        year = ++year;
+        break;
+      case "PREVIOUS_MONTH":
+        month = (--month < 0) ? (--year, month=11) : --month;
+        break;
+      case "NEXT_MONTH":
+        month = (++month>11) ? (++year, month=0) : ++month;
+        break;
+      default:
+        break;
+}
     this.setState({
       viewedDate: new Date(year,month),
     });
-  };
-
+}
   render() {
     const viewedYear = this.state.viewedDate.getFullYear();
     const viewedMonth = this.state.viewedDate.getMonth();

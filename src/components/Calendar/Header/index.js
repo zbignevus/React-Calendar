@@ -17,14 +17,14 @@ const CalendarHeader = ({ viewedYear, viewedMonth, changeViewedDate }) => (
   <div className="CalendarHeader">
     <div className="CalendarYear">
       <button
-        onClick={() => changeViewedDate("decrease", "viewedYear")}
+        onClick={() => changeViewedDate("PREVIOUS_YEAR")}
         className="ArrowSelect"
       >
         &#8249;
       </button>
       {viewedYear}
       <button
-        onClick={() => changeViewedDate("increase", "viewedYear")}
+        onClick={() => changeViewedDate("NEXT_YEAR")}
         className="ArrowSelect"
       >
         &#8250;
@@ -32,7 +32,7 @@ const CalendarHeader = ({ viewedYear, viewedMonth, changeViewedDate }) => (
     </div>
     <div className="CalendarMonthName">
       <button
-        onClick={() => changeViewedDate("decrease", "viewedMonth")}
+        onClick={() => changeViewedDate("PREVIOUS_MONTH")}
         className="ArrowSelect"
       >
         &#8249;
@@ -55,7 +55,7 @@ const CalendarHeader = ({ viewedYear, viewedMonth, changeViewedDate }) => (
         month={viewedMonth}
       />
       <button
-        onClick={() => changeViewedDate("increase", "viewedMonth")}
+        onClick={() => changeViewedDate("NEXT_MONTH")}
         className="ArrowSelect"
       >
         &#8250;

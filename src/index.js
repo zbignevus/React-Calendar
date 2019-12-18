@@ -21,7 +21,7 @@ class App extends Component {
       <Fragment>
         <div className="CalendarContainer">
 
-          <Calendar date={new Date(2019,12,11)} dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}/>
+          <Calendar date={new Date(2019,11,11)} dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}/>
 
         </div>
 
