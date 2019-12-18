@@ -40,6 +40,7 @@ class Calendar extends Component {
    */
   handleClick = clickedDate => {
     const {rangeBeginning, rangeEnding} = this.state;
+    const { dateRange } = this.props;
 
     const earlierDate = getEarlierDate(
       rangeBeginning,
@@ -53,17 +54,17 @@ class Calendar extends Component {
     //IF USER CLICKS ON A DATE WHILE ALREADY HAVING CLICKED ON ANY OTHER DATE PRIOR
 
     return rangeBeginning && rangeEnding
-      ? (this.props.dateRange(null, null),
+      ? (dateRange(null, null),
         this.setState({
           rangeBeginning: clickedDate,
           rangeEnding: null
         }))
       : rangeBeginning
-          ? (this.props.dateRange(earlierDate, laterDate),
+          ? (dateRange(earlierDate, laterDate),
             this.setState({
               rangeEnding: clickedDate
             }))
-          : (this.props.dateRange(null, null),
+          : (dateRange(null, null),
             this.setState({
               rangeBeginning: clickedDate
             }));
