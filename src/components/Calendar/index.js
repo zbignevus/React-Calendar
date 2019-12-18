@@ -17,7 +17,7 @@ import "./style.css";
     2. Once a date is selected, handleClick checks whether a beginning range already has values. If so, assigns clicked date
     into ending range date (thus creating a full date range). If a full date range already existed, it nullifies previous values
     and assigns the new beginning range date.
-    3. CalendarHeader component passes the year/month and action from CalendarHeader child component through handleChangeViewedDate function.
+    3. CalendarHeader component passes the action request from CalendarHeader child component through handleChangeViewedDate function.
  */
 
 class Calendar extends Component {
@@ -51,25 +51,22 @@ class Calendar extends Component {
     );
 
     //IF USER CLICKS ON A DATE WHILE ALREADY HAVING CLICKED ON ANY OTHER DATE PRIOR
-    if (rangeBeginning) {
-      this.props.dateRange(earlierDate, laterDate);
-      this.setState({
-        rangeEnding: clickedDate
-      });
-    } else {
-      this.props.dateRange(null, null);
-      this.setState({
-        rangeBeginning: clickedDate,
-      });
-    }
-    //IF USER CLICKS ON ANY DATE WHILE HAVING HAD SELECTED A RANGE
-    if (rangeBeginning && rangeEnding) {
-      this.props.dateRange(null, null);
-      this.setState({
-        rangeBeginning: clickedDate,
-        rangeEnding: null,
-      });
-    }
+
+    return rangeBeginning && rangeEnding
+      ? (this.props.dateRange(null, null),
+        this.setState({
+          rangeBeginning: clickedDate,
+          rangeEnding: null
+        }))
+      : rangeBeginning
+          ? (this.props.dateRange(earlierDate, laterDate),
+            this.setState({
+              rangeEnding: clickedDate
+            }))
+          : (this.props.dateRange(null, null),
+            this.setState({
+              rangeBeginning: clickedDate
+            }));
   };
 
   /*
@@ -77,7 +74,6 @@ class Calendar extends Component {
 
     SETS CALENDAR VIEWED YEAR/MONTH BASED ON ARGUMENTS PROVIDED FROM CHILD CalendarHeader COMPONENT.
     ENSURES THAT YEARS ARE TRACKED CORRECTLY WHEN TRAVERSING BETWEEN MONTHS.
-
   */
 
   handleChangeViewedDate = action => {
