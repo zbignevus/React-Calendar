@@ -82,22 +82,22 @@ class Calendar extends Component {
 
     //Increase action behavior and it's prop conditions
     switch(action){
-      case "PREVIOUS_YEAR":
+      case "DECREMENT_YEAR":
         --year;
         break;
-      case "NEXT_YEAR":
+      case "INCREMENT_YEAR":
         ++year;
         break;
-      case "PREVIOUS_MONTH":
+      case "DECREMENT_MONTH":
         month = month < 0 ? (11, --year) : --month;
         break;
-      case "NEXT_MONTH":
+      case "INCREMENT_MONTH":
         month = month > 11 ? (0, ++year) : ++month;
         break;
       default:
         break;
       }
-      
+
     this.setState({
       viewedDate: new Date(year,month),
     });
