@@ -38,7 +38,7 @@ class App extends Component {
     const { earlierDate, laterDate } = this.state;
     return (
        <div>      
-          Calendar dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}
+          Calendar date={new Date(2019,11,11)} dateRange={(earlierDate, laterDate) => this.setState({ earlierDate, laterDate })}
        </div>
      )
      }
