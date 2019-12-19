@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment, useState } from "react";
 import { getLaterDate, getEarlierDate } from "./helpers";
 import CalendarHeader, { CalendarWeekNames } from "./Header";
 import Days from "./Days";
@@ -17,57 +17,36 @@ import "./style.css";
     2. Once a date is selected, handleClick checks whether a beginning range already has values. If so, assigns clicked date
     into ending range date (thus creating a full date range). If a full date range already existed, it nullifies previous values
     and assigns the new beginning range date.
-    3. CalendarHeader component passes the action request from CalendarHeader child component through handleChangeViewedDate function.
+    3. CalendarHeader component passes the year/month and action from CalendarHeader child component through handleChangeViewedDate function.
  */
 
-class Calendar extends Component {
-  constructor(props) {
-    super(props);
+const Calendar = ({ date, dateRange }) => {
+  const [viewedDate, setViewedDate] = useState(date || new Date());
+  const [rangeBeginning, setRangeBeginning] = useState(null);
+  const [rangeEnding, setRangeEnding] = useState(null);
 
-    this.state = {
-      viewedDate: this.props.date || new Date(),
-      rangeBeginning: null,
-      rangeEnding: null,
-    };
-  }
+  var viewedYear = viewedDate.getFullYear();
+  var viewedMonth = viewedDate.getMonth();
 
   /*
     HANDLECLICK DESCRIPTION:
-      1. SETS YEAR/MONTH/DATE VALUE FROM PASSED currentlyClickedDate OBJECT ARGUMENT
-      2. GETS LAST CLICKED DATE'S VALUE FROM STATE AND ASSIGNS IT TO previouslySelectedDate as DATE INSTANCE.
-      3. SETS EARLIER(earlierDate) AND LATER(laterDate) DATE BY COMPARING LAST CLICKED AND CURRENTLY CLICKED DATE'S VALUE.
+      1. GETS EARLIER AND LATER DATE BY COMPARING THE PASSED DATE WITH THE BEGINNING RANGE DATE.
+      2. IF BEGINNING AND ENDING RANGE DATES ARE TRUTHY WHEN DATE ARGUMENT PASSED, RETURNS THE RANGE AS NULL AND SETS PASSED DATE TO BEGINNING RANGE DATE
+      3. IF ONLY BEGINNING RANGE EXISTED WHEN DATE ARGUMENT PASSED, RETURNS EARLIER AND LATER DATES AS RANGE AND SETS ENDING RANGE AS PASSED DATE ARGUMENT.
 
    */
-  handleClick = clickedDate => {
-    const {rangeBeginning, rangeEnding} = this.state;
-    const { dateRange } = this.props;
 
-    const earlierDate = getEarlierDate(
-      rangeBeginning,
-      clickedDate
-    );
-    const laterDate = getLaterDate(
-      rangeBeginning,
-      clickedDate
-    );
-
-    //IF USER CLICKS ON A DATE WHILE ALREADY HAVING CLICKED ON ANY OTHER DATE PRIOR
+  const handleClick = clickedDate => {
+    const earlierDate = getEarlierDate(rangeBeginning, clickedDate);
+    const laterDate = getLaterDate(rangeBeginning, clickedDate);
 
     return rangeBeginning && rangeEnding
       ? (dateRange(null, null),
-        this.setState({
-          rangeBeginning: clickedDate,
-          rangeEnding: null
-        }))
+        setRangeBeginning(clickedDate),
+        setRangeEnding(null))
       : rangeBeginning
-          ? (dateRange(earlierDate, laterDate),
-            this.setState({
-              rangeEnding: clickedDate
-            }))
-          : (dateRange(null, null),
-            this.setState({
-              rangeBeginning: clickedDate
-            }));
+      ? (dateRange(earlierDate, laterDate), setRangeEnding(clickedDate))
+      : (dateRange(null, null), setRangeBeginning(clickedDate));
   };
 
   /*
@@ -77,53 +56,51 @@ class Calendar extends Component {
     ENSURES THAT YEARS ARE TRACKED CORRECTLY WHEN TRAVERSING BETWEEN MONTHS.
   */
 
-  handleChangeViewedDate = action => {
-    let year = this.state.viewedDate.getFullYear();
-    let month = this.state.viewedDate.getMonth();
-
-    //Increase action behavior and it's prop conditions
-    switch(action){
+  const handleChangeViewedDate = action => {
+    switch (action) {
       case "DECREMENT_YEAR":
-        --year;
+        viewedYear = --viewedYear;
         break;
       case "INCREMENT_YEAR":
-        ++year;
+        viewedYear = ++viewedYear;
         break;
       case "DECREMENT_MONTH":
-        month = month < 0 ? (11, --year) : --month;
+        viewedMonth =
+          viewedMonth < 0 ? (--viewedYear, (viewedMonth = 11)) : --viewedMonth;
         break;
       case "INCREMENT_MONTH":
-        month = month > 11 ? (0, ++year) : ++month;
+        viewedMonth =
+          viewedMonth > 11 ? (++viewedYear, (viewedMonth = 0)) : ++viewedMonth;
         break;
       default:
         break;
-      }
+    }
+    setViewedDate(new Date(viewedYear, viewedMonth));
+  };
 
-    this.setState({
-      viewedDate: new Date(year,month),
-    });
-}
-  render() {
-    const viewedYear = this.state.viewedDate.getFullYear();
-    const viewedMonth = this.state.viewedDate.getMonth();
-    return (
-      <Fragment>
-        <CalendarHeader
-          viewedYear={viewedYear}
-          viewedMonth={viewedMonth}
-          changeViewedDate={this.handleChangeViewedDate}
-        />
-        <div className="CalendarBody">
-          <div className="CalendarWeek">
-            <CalendarWeekNames />
-          </div>
-          <div className="CalendarMonthDays">
-            <Days {...this.state} onClick={this.handleClick} />
-          </div>
+  return (
+    <Fragment>
+      <CalendarHeader
+        viewedYear={viewedYear}
+        viewedMonth={viewedMonth}
+        changeViewedDate={handleChangeViewedDate}
+      />
+      <div className="CalendarBody">
+        <div className="CalendarWeek">
+          <CalendarWeekNames />
         </div>
-      </Fragment>
-    );
-  }
-}
+        <div className="CalendarMonthDays">
+          <Days
+            viewedYear={viewedYear}
+            viewedMonth={viewedMonth}
+            rangeBeginning={rangeBeginning}
+            rangeEnding={rangeEnding}
+            onClick={handleClick}
+          />
+        </div>
+      </div>
+    </Fragment>
+  );
+};
 
 export default Calendar;

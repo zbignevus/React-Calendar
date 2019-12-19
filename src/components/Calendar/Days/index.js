@@ -10,69 +10,75 @@ import { getMonthLength, getEarlierDate, getLaterDate } from "../helpers.js";
   3. Push same amount of days buttons that getMonthLength returns for length of the month.
   4. Notify parent component when and which day button is clicked and pass it as a Date instance.
   5. conditionally style day buttons based on selection value.
+  *Notes: getTime() is needed to be able to correctly compare dates between Date objects.
   */
 
 
-const Days = props => {
-  const {
-    viewedDate,
+  const Days = ({
+    viewedYear,
+    viewedMonth,
     rangeBeginning,
     rangeEnding,
     onClick
-  } = props;
-  const viewedYear = viewedDate.getFullYear();
-  const viewedMonth = viewedDate.getMonth();
+  }) => {
+    const days = [];
 
+    const monthLength = getMonthLength(new Date(viewedYear, viewedMonth));
 
-  const days = [];
+    const earlierDate =
+      rangeBeginning && rangeEnding
+        ? getEarlierDate(rangeBeginning, rangeEnding).getTime()
+        : null;
 
-  const monthLength = getMonthLength(viewedDate);
+    const laterDate =
+      rangeBeginning & rangeEnding
+        ? getLaterDate(rangeBeginning, rangeEnding).getTime()
+        : null;
 
-  const earlierDate = rangeBeginning && rangeEnding ? getEarlierDate(
-    rangeBeginning,
-    rangeEnding,
-  ).getTime() : null;
+    for (let i = 1; i <= monthLength; i++) {
+      //FOR CONDITIONAL STYLING
 
-  const laterDate = rangeBeginning & rangeEnding ? getLaterDate(
-    rangeBeginning,
-    rangeEnding,
-  ).getTime() : null;
+      const currentDate = new Date(viewedYear, viewedMonth, i).getTime();
 
+      //DAY WILL BE MARKED IF WITHIN SELECTED RANGE
+      const isInRange =
+        rangeBeginning &&
+        rangeEnding &&
+        earlierDate <= currentDate &&
+        currentDate <= laterDate;
 
+      //DAY WILL BE MARKED DIFFERENTLY IF FIRST OR LAST WITHIN RANGE
+      const isTheRangeLimit =
+        earlierDate &&
+        laterDate &&
+        (earlierDate === currentDate || laterDate === currentDate);
 
-  for (let i = 1; i <= monthLength; i++) {
-    //FOR CONDITIONAL STYLING
+      //DAY WILL BE MARKED DIFFERENTLY IF CLICKED ON
+      const isActive =
+        (rangeBeginning && rangeBeginning.getTime()) === currentDate;
 
-    const currentDate = new Date(viewedYear, viewedMonth, i).getTime();
+      days.push(
+        <button
+          className={
+            (isActive ? "isActive" : undefined) ||
+            (isInRange && isTheRangeLimit ? "rangeLimit" : undefined) ||
+            (isInRange ? "isInRange" : undefined)
+          }
+          dateTime={viewedYear + "-" + (viewedMonth + 1) + "-" + i}
+          style={{
+            gridColumn:
+              i === 1 ? new Date(viewedYear, viewedMonth, 1).getDay() + 1 : ""
+          }}
+          key={"day" + i}
+          onClick={() => {
+            onClick(new Date(viewedYear, viewedMonth, i));
+          }}
+        >
+          <time>{i}</time>
+        </button>
+      );
+    }
+    return days;
+  };
 
-    //DAY WILL BE MARKED IF WITHIN SELECTED RANGE
-    const isInRange =
-      rangeBeginning && rangeEnding && earlierDate <= currentDate && currentDate <= laterDate;
-
-
-    //DAY WILL BE MARKED DIFFERENTLY IF FIRST OR LAST WITHIN RANGE
-    const isTheRangeLimit =
-      earlierDate && laterDate && (earlierDate === currentDate || laterDate === currentDate);
-
-    //DAY WILL BE MARKED DIFFERENTLY IF CLICKED ON
-    const isActive = (rangeBeginning && rangeBeginning.getTime()) === currentDate;
-
-    days.push(
-      <button
-        className={
-          (isActive ? "isActive" : undefined) ||
-          (isInRange && isTheRangeLimit ? "rangeLimit" : undefined) ||
-          (isInRange ? "isInRange" : undefined)
-        }
-        dateTime={viewedYear + "-" + (viewedMonth + 1) + "-" + i}
-        style={{gridColumn: i === 1 ? new Date(viewedYear, viewedMonth, 1).getDay() + 1 : ""}}
-        key={"day" + i}
-        onClick={() => { onClick(new Date(viewedYear, viewedMonth, i)); }}>
-        <time>{i}</time>
-      </button>
-    );
-  }
-  return days;
-};
-
-export default Days;
+  export default Days;
