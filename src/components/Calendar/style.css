@@ -1,106 +1,12 @@
 .Calendar {
   text-align: center;
   color: #eef3f8;
-  font-family: "Roboto";
-}
-
-.CalendarYear,
-.CalendarMonthName {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-}
-
-.CalendarYear button,
-.CalendarMonthName button {
-  outline: none;
-}
-
-.CalendarHeader {
-  padding: 0.8em;
-  color: inherit;
-  background: #568dba;
-}
-
-.CalendarBody {
-  background: #eef3f8;
-  color: inherit;
-}
-
-.CalendarWeek {
-  background: #9abad6;
-}
-
-.CalendarWeek,
-.CalendarMonthDays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: 0.5em;
-}
-
-.CalendarMonthDays {
-  color: #325e82;
-}
-.CalendarMonthDays button {
-  height: 2.5em;
-  color: inherit;
   font-family: inherit;
-  outline: none;
 }
 
-.CalendarMonthDays button:hover {
-  background: #9abad6;
-  cursor: pointer;
+.CalendarContainer {
+  text-align: center;
   color: #eef3f8;
-}
-
-.CalendarMonthDays button.isSelected {
-  background: #9abad6;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isInRange {
-  background: #9abad6;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isInRange:hover {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.rangeLimit {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.rangeLimit:hover {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isActive {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isSelectedInRange {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isSelectedInRange:hover {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.isActive:hover {
-  background: #568dba;
-  color: #eef3f8;
-}
-
-button.ArrowSelect {
-  cursor: pointer;
-  color: inherit;
-  font-size: 1.3em;
+  font-family: inherit;
+  width: 350px;
 }

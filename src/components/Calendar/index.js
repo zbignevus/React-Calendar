@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { getLaterDate, getEarlierDate } from "./helpers";
-import CalendarHeader, { CalendarWeekNames } from "./Header";
+import CalendarHeader from "./Header";
+import CalendarWeekDays from './WeekDays'
 import Days from "./Days";
 import "./style.css";
+import styled from 'styled-components';
 
 /*
   CALENDAR COMPONENT DESCRIPTION:
@@ -20,7 +22,7 @@ import "./style.css";
     3. CalendarHeader component passes the year/month and action from CalendarHeader child component through handleChangeViewedDate function.
  */
 
-const Calendar = ({ date, dateRange }) => {
+const Calendar = ({ date, dateRange,...props  }) => {
   const [viewedDate, setViewedDate] = useState(date || new Date());
   const [rangeBeginning, setRangeBeginning] = useState(null);
   const [rangeEnding, setRangeEnding] = useState(null);
@@ -78,27 +80,52 @@ const Calendar = ({ date, dateRange }) => {
     setViewedDate(new Date(viewedYear, viewedMonth));
   };
 
+  /*STYLING JCSS*/
+
+  const CalendarHeaderStyle = styled.div`
+    background: ${props['header-color'] || 'inherit'}
+  `;
+
+  const CalendarWeekStyle = styled.div`
+    background: ${props['week-color'] || 'inherit'}
+  `;
+
+  const CalendarBodyStyle = styled.div`
+    color: #325e82;
+    background: ${props['day-background-color'] || '#eef3f8'};
+    button:hover, button.isInRange{
+        background: ${props['day-hover-color'] || '#9abad6' };
+        color: #eef3f8;
+    };
+
+    button.isActive, button.rangeLimit, button.isInRange:hover{
+      background: ${props['day-selected-color'] || '#568dba'};
+      color: #eef3f8;
+    }
+  `;
+
   return (
     <Fragment>
-      <CalendarHeader
-        viewedYear={viewedYear}
+      <CalendarHeaderStyle>
+        <CalendarHeader
+          changeViewedDate={handleChangeViewedDate}
+          viewedMonth={viewedMonth}
+          viewedYear={viewedYear}
+        />
+
+    </CalendarHeaderStyle>
+    <CalendarWeekStyle>
+      <CalendarWeekDays/>
+    </CalendarWeekStyle>
+    <CalendarBodyStyle>
+      <Days
+        onClick={handleClick}
+        rangeBeginning={rangeBeginning}
+        rangeEnding={rangeEnding}
         viewedMonth={viewedMonth}
-        changeViewedDate={handleChangeViewedDate}
+        viewedYear={viewedYear}
       />
-      <div className="CalendarBody">
-        <div className="CalendarWeek">
-          <CalendarWeekNames />
-        </div>
-        <div className="CalendarMonthDays">
-          <Days
-            viewedYear={viewedYear}
-            viewedMonth={viewedMonth}
-            rangeBeginning={rangeBeginning}
-            rangeEnding={rangeEnding}
-            onClick={handleClick}
-          />
-        </div>
-      </div>
+    </CalendarBodyStyle>
     </Fragment>
   );
 };

@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, {Fragment} from "react";
+import './style.css';
 import { getMonthLength, getEarlierDate, getLaterDate } from "../helpers.js";
 
 /*
@@ -19,7 +19,7 @@ import { getMonthLength, getEarlierDate, getLaterDate } from "../helpers.js";
     viewedMonth,
     rangeBeginning,
     rangeEnding,
-    onClick
+    onClick,
   }) => {
     const days = [];
 
@@ -78,7 +78,16 @@ import { getMonthLength, getEarlierDate, getLaterDate } from "../helpers.js";
         </button>
       );
     }
-    return days;
+    return (
+      <div className="CalendarMonthDays">
+        {days.map(day=>
+          <Fragment>
+          {day}
+        </Fragment>
+      )}
+      </div>
+
+    );
   };
 
   export default Days;

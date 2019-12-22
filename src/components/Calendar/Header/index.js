@@ -1,8 +1,8 @@
 import React from "react";
 
 import CalendarMonthNames from "./CalendarMonthNames";
-import CalendarWeekNames from './CalendarWeekNames';
 
+import './style.css';
 
 /* CALENDARHEADER COMPONENT DESCRIPTION
   1. Accepts state values for viewed year, month and "chnageViewedDate" changing date handler function from parent (Calendar) component.
@@ -12,6 +12,7 @@ import CalendarWeekNames from './CalendarWeekNames';
     the visual component "CalendarMonthNames" allows to add an array of months(needs to be in actual order).
     This is needed should the user want to have months displayed in a different language.
 */
+
 
 const CalendarHeader = ({ viewedYear, viewedMonth, changeViewedDate }) => (
   <div className="CalendarHeader">
@@ -61,8 +62,8 @@ const CalendarHeader = ({ viewedYear, viewedMonth, changeViewedDate }) => (
         &#8250;
       </button>
     </div>
+
   </div>
 );
 
 export default CalendarHeader;
-export {CalendarWeekNames};

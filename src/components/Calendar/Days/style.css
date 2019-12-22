@@ -1,0 +1,13 @@
+.CalendarMonthDays {
+  display: grid;
+  font-family: inherit;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0.5em;
+}
+
+.CalendarMonthDays button {
+  color: inherit;
+  cursor: pointer;
+  height: 2.5em;
+  outline: none;
+}

@@ -1,0 +1,22 @@
+.CalendarYear,
+.CalendarMonthName {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.CalendarYear button,
+.CalendarMonthName button {
+  outline: none;
+}
+
+.CalendarHeader {
+  padding: 0.8em;
+  color: inherit;
+}
+
+button.ArrowSelect {
+  cursor: pointer;
+  color: inherit;
+  font-size: 1.3em;
+}

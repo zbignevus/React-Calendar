@@ -1,65 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
-
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
 html,
 body,
 * {
+  background: none;
+  border: none;
+  cursor: arrow;
+  outline: none;
   overflow-x: hidden;
   text-decoration: none;
-  border: none;
-  background: none;
-  cursor: arrow;
-  outline: none;  
-}
-
-.CalendarContainer {
-  text-align: center;
-  color: #eef3f8;
-  font-family: "Roboto";
-  width: 350px;
-}
-
-.CalendarMonthName {
-}
-
-.CalendarHeader {
-  padding: 0.8em;
-  color: inherit;
-  background: #568dba;
-}
-
-.CalendarBody {
-  background: #eef3f8;
-  color: inherit;
-}
-
-.CalendarWeek {
-  background: #9abad6;
-}
-
-.CalendarWeek,
-.CalendarMonthDays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: 0.5em;
-}
-
-.CalendarMonthDays {
-  color: #325e82;
-}
-.CalendarMonthDays button {
-  height: 2.5em;
-  color: inherit;
-  font-family: inherit;
-  outline: none;
-}
-
-.CalendarMonthDays button:hover {
-  background: #9abad6;
-  cursor: pointer;
-  color: #eef3f8;
-}
-
-.CalendarMonthDays button.active {
-  background: #9abad6;
-  color: #eef3f8;
+  font-family: 'Righteous', cursive;
 }
